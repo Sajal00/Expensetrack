@@ -41,6 +41,16 @@ const loginStyle = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  flexdirection: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errortext: {
+    color: 'red',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
 });
 
 export default loginStyle;
