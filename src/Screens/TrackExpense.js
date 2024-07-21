@@ -1,12 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  TextInput,
-  Dimensions,
-} from 'react-native';
+import {View, Text, TextInput, Dimensions} from 'react-native';
+import TrackExpenseStyle from '../StyleSheet/TrackExpenseStyle';
 import {useSelector, useDispatch} from 'react-redux';
 import {addExpenses} from '../Redux/Slice/ExpenseSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -100,28 +94,30 @@ const TrackExpense = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={TrackExpenseStyle.container}>
       <TextInput
-        style={styles.input}
+        style={TrackExpenseStyle.input}
         placeholder="Start Date (YYYY-MM-DD)"
         value={startDate}
         onChangeText={setStartDate}
       />
       <TextInput
-        style={styles.input}
+        style={TrackExpenseStyle.input}
         placeholder="End Date (YYYY-MM-DD)"
         value={endDate}
         onChangeText={setEndDate}
       />
       <TextInput
-        style={styles.input}
+        style={TrackExpenseStyle.input}
         placeholder="Filter by Amount"
         value={filterAmount}
         onChangeText={setFilterAmount}
         keyboardType="numeric"
       />
-      <View style={styles.summaryContainer}>
-        <Text style={styles.summaryText}>Total Spent: ₹{totalSpent}</Text>
+      <View style={TrackExpenseStyle.summaryContainer}>
+        <Text style={TrackExpenseStyle.summaryText}>
+          Total Spent: ₹{totalSpent}
+        </Text>
       </View>
       <PieChart
         data={chartData}
@@ -136,36 +132,5 @@ const TrackExpense = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 10,
-  },
-  input: {
-    backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 10,
-  },
-  summaryContainer: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  summaryText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#264653',
-    marginBottom: 5,
-  },
-});
 
 export default TrackExpense;
