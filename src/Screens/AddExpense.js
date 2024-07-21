@@ -10,6 +10,8 @@ import {
 import AddExpenseStyle from '../StyleSheet/AddExpensestyle';
 import DatePicker from 'react-native-date-picker';
 import {format} from 'date-fns';
+import {useDispatch} from 'react-redux';
+import {addExpenses} from '../Redux/Slice/ExpenseSlice';
 
 const AddExpense = () => {
   const [amount, setAmount] = useState('');
@@ -17,7 +19,8 @@ const AddExpense = () => {
   const [date, setDate] = useState(new Date());
   const [description, setDescription] = useState('');
   const [open, setOpen] = useState(false);
-  const [expenses, setExpenses] = useState([]);
+
+  const dispatch = useDispatch();
 
   const handleAddExpense = () => {
     if (!amount || !category || !description) {
@@ -31,8 +34,9 @@ const AddExpense = () => {
       date: format(date, 'yyyy-MM-dd'),
       description,
     };
-    setExpenses([...expenses, newExpense]);
-    console.log('expenses listing', expenses);
+
+    dispatch(addExpenses(newExpense));
+
     setAmount('');
     setCategory('');
     setDate(new Date());
