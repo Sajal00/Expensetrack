@@ -87,27 +87,31 @@ const ViewExpense = () => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={sortedExpenses}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <View style={styles.itemContainer}>
-            <View style={styles.contentContainer}>
-              <Text style={styles.amount}>Amount: ₹{item.amount}</Text>
-              <Text style={styles.category}>Category: {item.category}</Text>
-              <Text style={styles.date}>Date: {item.date}</Text>
-              <Text style={styles.description}>
-                Description: {item.description}
-              </Text>
+      {sortedExpenses && sortedExpenses.length > 0 ? (
+        <FlatList
+          data={sortedExpenses}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <View style={styles.itemContainer}>
+              <View style={styles.contentContainer}>
+                <Text style={styles.amount}>Amount: ₹{item.amount}</Text>
+                <Text style={styles.category}>Category: {item.category}</Text>
+                <Text style={styles.date}>Date: {item.date}</Text>
+                <Text style={styles.description}>
+                  Description: {item.description}
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => handleDelete(item.id)}>
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              style={styles.deleteButton}
-              onPress={() => handleDelete(item.id)}>
-              <Text style={styles.deleteButtonText}>Delete</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      />
+          )}
+        />
+      ) : (
+        <Text>no data found</Text>
+      )}
     </View>
   );
 };

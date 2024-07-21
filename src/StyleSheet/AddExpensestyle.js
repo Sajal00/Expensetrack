@@ -22,6 +22,7 @@ const AddExpenseStyle = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
+    color: '#333',
   },
   dateInputContainer: {
     flexDirection: 'row',
@@ -35,6 +36,7 @@ const AddExpenseStyle = StyleSheet.create({
   dateInput: {
     flex: 1,
     height: 40,
+    color: '#333',
   },
   KeyboardAvoidingView: {height: deviceHeight, width: deviceWidth},
   SafeAreaView: {flex: 1, justifyContent: 'center', alignItems: 'center'},

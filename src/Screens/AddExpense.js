@@ -82,6 +82,8 @@ const AddExpense = () => {
               keyboardType="numeric"
               value={amount}
               onChangeText={setAmount}
+              placeholderTextColor="#333"
+              placeholder="Add Amount"
             />
 
             <Text style={AddExpenseStyle.label}>Category</Text>
@@ -89,20 +91,22 @@ const AddExpense = () => {
               style={AddExpenseStyle.input}
               value={category}
               onChangeText={setCategory}
+              placeholderTextColor="#333"
+              placeholder="Add Catagory"
             />
 
             <Text style={AddExpenseStyle.label}>Date</Text>
-            <View style={AddExpenseStyle.dateInputContainer}>
-              <TextInput
-                style={AddExpenseStyle.dateInput}
-                value={format(date, 'yyyy-MM-dd')}
-                editable={false}
-              />
-              <TouchableOpacity onPress={() => setOpen(true)}>
-                <Text>date</Text>
-                {/* <Icon name="calendar-today" size={30} color="gray" /> */}
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={() => setOpen(true)}>
+              <View style={AddExpenseStyle.dateInputContainer}>
+                <TextInput
+                  style={AddExpenseStyle.dateInput}
+                  value={format(date, 'yyyy-MM-dd')}
+                  placeholderTextColor="#333"
+                  placeholder="Select Date"
+                  editable={false}
+                />
+              </View>
+            </TouchableOpacity>
 
             <DatePicker
               modal
@@ -123,6 +127,8 @@ const AddExpense = () => {
               style={AddExpenseStyle.input}
               value={description}
               onChangeText={setDescription}
+              placeholderTextColor="#333"
+              placeholder="Add Description"
             />
 
             <Button title="Add Expense" onPress={handleAddExpense} />
