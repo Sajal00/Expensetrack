@@ -1,8 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import loginStyle from '../StyleSheet/Loginstyle';
 import auth from '@react-native-firebase/auth';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,20 +17,20 @@ const LoginScreen = ({navigation}) => {
 
   const _handlelogin = () => {
     navigation.navigate('SignUp');
-    console.log('clicked');
   };
   const handleSignIn = async () => {
-    setErrorText(''); // Clear previous errors
+    setErrorText('');
     if (!email || !password) {
       setErrorText('Please enter both email and password.');
       return;
     }
 
-    setLoading(true); // Start loading indicator
+    setLoading(true);
 
     try {
       const user = await auth().signInWithEmailAndPassword(email, password);
       console.log(user);
+      await AsyncStorage.setItem('loggedInUser', JSON.stringify(user));
       navigation.navigate('Home');
     } catch (error) {
       console.log(error);
@@ -43,7 +49,7 @@ const LoginScreen = ({navigation}) => {
           break;
       }
     } finally {
-      setLoading(false); // Stop loading indicator
+      setLoading(false);
     }
   };
 
@@ -53,7 +59,7 @@ const LoginScreen = ({navigation}) => {
       <TextInput
         style={loginStyle.input}
         placeholder="Email"
-        placeholderTextColor="blue"
+        placeholderTextColor="#3498db"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -62,7 +68,7 @@ const LoginScreen = ({navigation}) => {
       <TextInput
         style={loginStyle.input}
         placeholder="Password"
-        placeholderTextColor="blue"
+        placeholderTextColor="#3498db"
         value={password}
         onChangeText={setPassword}
       />
@@ -79,7 +85,7 @@ const LoginScreen = ({navigation}) => {
       <View style={loginStyle.flexdirection}>
         <Text>Don't have any account?</Text>
         <TouchableOpacity onPress={_handlelogin}>
-          <Text> Sign Up</Text>
+          <Text style={loginStyle.signUp}>Sign Up</Text>
         </TouchableOpacity>
       </View>
     </View>

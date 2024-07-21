@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,13 +8,37 @@ import {
   Alert,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {removeExpense} from '../Redux/Slice/ExpenseSlice';
+import {
+  addExpenses,
+  removeExpense,
+  clearExpenses,
+} from '../Redux/Slice/ExpenseSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import store from '../Redux/Store/Store';
 
 const ViewExpense = () => {
-  const expenses = useSelector(state => state.expenses);
+  let expenses = useSelector(state => state.expenses);
   const dispatch = useDispatch();
 
-  const handleDelete = index => {
+  useEffect(() => {
+    if (!expenses || expenses.length === 0) {
+      getExpenseList();
+    }
+  }, [expenses, dispatch]);
+
+  const getExpenseList = async () => {
+    try {
+      const data = await AsyncStorage.getItem('myExpensesList');
+      if (data) {
+        const parsedData = JSON.parse(data);
+        parsedData.forEach(expense => dispatch(addExpenses(expense)));
+      }
+    } catch (error) {
+      console.error('Error fetching data from AsyncStorage:', error);
+    }
+  };
+
+  const handleDelete = async id => {
     Alert.alert(
       'Delete Expense',
       'Are you sure you want to delete this expense?',
@@ -25,21 +49,51 @@ const ViewExpense = () => {
         },
         {
           text: 'OK',
-          onPress: () => dispatch(removeExpense(index)), // Dispatch action to remove expense
+          onPress: async () => {
+            dispatch(removeExpense(id));
+
+            try {
+              const state = store.getState();
+              const updatedExpensesList = state.expenses;
+
+              await AsyncStorage.setItem(
+                'myExpensesList',
+                JSON.stringify(updatedExpensesList),
+              );
+              if (updatedExpensesList.length === 0) {
+                dispatch(clearExpenses());
+              }
+            } catch (error) {
+              console.error(
+                'Error updating AsyncStorage after deletion:',
+                error,
+              );
+            }
+          },
         },
       ],
     );
   };
 
+  const sortedExpenses = [...expenses].sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    if (dateB - dateA !== 0) {
+      return dateB - dateA;
+    }
+    return b.amount - a.amount;
+  });
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={expenses}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({item, index}) => (
+        data={sortedExpenses}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
           <View style={styles.itemContainer}>
             <View style={styles.contentContainer}>
-              <Text style={styles.amount}>Amount: ${item.amount}</Text>
+              <Text style={styles.amount}>Amount: ₹{item.amount}</Text>
               <Text style={styles.category}>Category: {item.category}</Text>
               <Text style={styles.date}>Date: {item.date}</Text>
               <Text style={styles.description}>
@@ -48,7 +102,7 @@ const ViewExpense = () => {
             </View>
             <TouchableOpacity
               style={styles.deleteButton}
-              onPress={() => handleDelete(index)}>
+              onPress={() => handleDelete(item.id)}>
               <Text style={styles.deleteButtonText}>Delete</Text>
             </TouchableOpacity>
           </View>
@@ -73,11 +127,11 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 2, // For Android shadow
-    position: 'relative', // Needed for positioning the delete button
+    elevation: 2,
+    position: 'relative',
   },
   contentContainer: {
-    marginBottom: 40, // Space for the delete button
+    marginBottom: 40,
   },
   amount: {
     fontSize: 18,
@@ -97,7 +151,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 14,
-    color: '#f1faee',
+    color: '#264653',
   },
   deleteButton: {
     position: 'absolute',

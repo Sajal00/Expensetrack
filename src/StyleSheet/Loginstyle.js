@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, KeyboardAvoidingView} from 'react-native';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -26,7 +26,7 @@ const loginStyle = StyleSheet.create({
     fontSize: 16,
     borderWidth: 1,
     borderColor: '#ddd',
-    color: 'blue',
+    color: '#3498db',
   },
   button: {
     height: 50,
@@ -50,6 +50,12 @@ const loginStyle = StyleSheet.create({
     color: 'red',
     textAlign: 'center',
     marginVertical: 10,
+  },
+  signUp: {
+    color: '#3498db',
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginLeft: 5,
   },
 });
 

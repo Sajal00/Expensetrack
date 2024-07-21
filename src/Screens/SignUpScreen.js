@@ -28,19 +28,18 @@ const SignUpScreen = ({navigation}) => {
         email,
         password,
       );
-      console.log(userdata);
       console.log('User account created & signed in!');
       navigation.navigate('Login');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         console.log('That email address is already in use!');
-      }
-      if (error.code === 'auth/invalid-email') {
+      } else if (error.code === 'auth/invalid-email') {
         console.log('That email address is invalid!');
+      } else if (error.code === 'auth/weak-password') {
+        console.log('Password should be at least 6 characters');
       }
-      console.error(error);
     } finally {
-      setLoading(false); // Stop loading indicator
+      setLoading(false);
     }
   };
   const handlelogin = () => {
@@ -52,7 +51,7 @@ const SignUpScreen = ({navigation}) => {
       <TextInput
         style={loginStyle.input}
         placeholder="Name"
-        placeholderTextColor="blue"
+        placeholderTextColor="#3498db"
         value={name}
         onChangeText={setName}
         keyboardType="default"
@@ -61,7 +60,7 @@ const SignUpScreen = ({navigation}) => {
       <TextInput
         style={loginStyle.input}
         placeholder="Email"
-        placeholderTextColor="blue"
+        placeholderTextColor="#3498db"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -70,7 +69,7 @@ const SignUpScreen = ({navigation}) => {
       <TextInput
         style={loginStyle.input}
         placeholder="Password"
-        placeholderTextColor="blue"
+        placeholderTextColor="#3498db"
         value={password}
         onChangeText={setPassword}
       />
@@ -86,7 +85,7 @@ const SignUpScreen = ({navigation}) => {
       <View style={loginStyle.flexdirection}>
         <Text>Already have an account? </Text>
         <TouchableOpacity onPress={handlelogin}>
-          <Text> Log In </Text>
+          <Text style={loginStyle.signUp}>Log In</Text>
         </TouchableOpacity>
       </View>
     </View>

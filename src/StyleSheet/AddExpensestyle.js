@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -6,9 +7,10 @@ const deviceWidth = Dimensions.get('window').width;
 const AddExpenseStyle = StyleSheet.create({
   container: {
     height: deviceHeight / 1.3,
-
+    width: deviceWidth,
     padding: 20,
-    justifyContent: 'center',
+    // marginBottom: 50,
+    // justifyContent: 'center',
   },
   label: {
     fontSize: 18,
@@ -34,6 +36,8 @@ const AddExpenseStyle = StyleSheet.create({
     flex: 1,
     height: 40,
   },
+  KeyboardAvoidingView: {height: deviceHeight, width: deviceWidth},
+  SafeAreaView: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });
 
 export default AddExpenseStyle;
