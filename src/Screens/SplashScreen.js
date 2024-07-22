@@ -1,6 +1,7 @@
-import {View, Text} from 'react-native';
+import {View, Image, Text} from 'react-native';
 import React, {useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashStyle from '../StyleSheet/SplashStyle';
 
 const SplashScreen = ({navigation}) => {
   useEffect(() => {
@@ -9,15 +10,28 @@ const SplashScreen = ({navigation}) => {
   const checkUserStatus = async () => {
     let data = await AsyncStorage.getItem('loggedInUser');
     if (data) {
-      navigation.navigate('Home');
+      navigation.replace('Home');
     } else {
-      navigation.navigate('Login');
+      navigation.replace('Login');
     }
   };
   return (
-    <View>
-      <Text>SplashScreen</Text>
-    </View>
+    <>
+      <View style={SplashStyle.container}>
+        <View style={SplashStyle.splashimages}>
+          <Image
+            source={require('../Asset/expense.png')}
+            style={{
+              height: '80%',
+              width: '80%',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          />
+        </View>
+        <Text style={SplashStyle.welcometext}>Welcome to Expense Tracker</Text>
+      </View>
+    </>
   );
 };
 
