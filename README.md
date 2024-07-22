@@ -2,7 +2,11 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+
+# node module install
+
+run command --> npm i
 
 ## Step 1: Start the Metro Server
 
@@ -30,17 +34,6 @@ npm run android
 
 # OR using Yarn
 yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
 
 If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
@@ -77,3 +70,52 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+```
+
+### dependencies installed
+
+    "@react-native-async-storage/async-storage": "^1.24.0",
+    "@react-native-firebase/app": "^20.3.0",
+    "@react-native-firebase/auth": "^20.3.0",
+    "@react-native-firebase/messaging": "^20.3.0",
+    "@react-navigation/bottom-tabs": "^6.6.1",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native-stack": "^6.10.1",
+    "@reduxjs/toolkit": "^2.2.6",
+    "date-fns": "^3.6.0",
+    "react": "18.2.0",
+    "react-native": "0.74.3",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-date-picker": "^5.0.4",
+    "react-native-safe-area-context": "^4.10.8",
+    "react-native-screens": "^3.32.0",
+    "react-native-svg": "^15.4.0",
+    "react-redux": "^9.1.2"
+
+### Project Structure
+
+## src folder
+
+###
+
+a>AppNavigator
+
+###
+
+b>Asset
+
+###
+
+c>redux
+
+###
+
+d>Screens
+
+###
+
+e>StyleSheet
+
+###
+
+f>SVG Icons
